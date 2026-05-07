@@ -1,4 +1,4 @@
-import { globalStyle, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 const bottomBtn = style({
   position: 'fixed',
@@ -10,30 +10,54 @@ const bottomBtn = style({
 
 const container = style({
   display: 'flex',
-  padding: '1rem',
+  padding: '1rem 0',
   flexDirection: 'column',
   gap: '1rem',
 });
 
-const box = style({
+const boxWrap = style({
+  padding: '12px 0',
+  backgroundColor: '#F2F3F5',
   display: 'flex',
-  padding: '1rem',
   flexDirection: 'column',
   gap: '1rem',
-  borderRadius: '1rem',
-  backgroundColor: '#F3F4F5',
+});
+const box = style({
+  padding: '20px',
+  borderRadius: '12px',
+  backgroundColor: '#FFFFFF',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
 });
 
 const row = style({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   justifyContent: 'space-between',
 });
 
-const switchItem = style({});
+const btmContent = style({
+  padding: 0,
+});
 
-globalStyle(`${switchItem} > span > span:first-child`, {
-  fontWeight: 500,
+const boxCalc = style({
+  padding: '1rem 20px 24px',
+  backgroundColor: '#F2F3F5',
+  borderRadius: '12px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+});
+
+const tag = style({
+  height: '28px',
+  padding: '4px 8px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '100px',
+  backgroundColor: '#FFFFFF',
 });
 
 export const appSt = {
@@ -41,5 +65,8 @@ export const appSt = {
   container,
   box,
   row,
-  switchItem,
+  boxWrap,
+  btmContent,
+  boxCalc,
+  tag,
 };
