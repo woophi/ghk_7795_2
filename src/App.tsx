@@ -6,7 +6,9 @@ import { Slider } from '@alfalab/core-components/slider/cssm';
 import { Tag } from '@alfalab/core-components/tag/cssm';
 import { Typography } from '@alfalab/core-components/typography/cssm';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import checkImg from './assets/check.png';
+import c1Img from './assets/c1.png';
+import c2Img from './assets/c2.png';
+import c31Img from './assets/c3.png';
 import polisImg from './assets/polis.png';
 import { LS, LSKeys } from './ls';
 import { appSt } from './style.css';
@@ -16,14 +18,17 @@ const items = [
   {
     title: 'Гарантированный доход',
     subtitle: 'Размер дохода фиксирован и гарантирован условиями договора',
+    img: c1Img,
   },
   {
     title: 'Защита капитала',
     subtitle: 'Гарантированный доход и взносы выплачиваются в полном объеме в конце срока действия договора',
+    img: c2Img,
   },
   {
     title: 'Преимущества программы',
     subtitle: 'Страховое покрытие, юридическая защита и адресная передача капитала',
+    img: c31Img,
   },
 ];
 
@@ -34,7 +39,8 @@ const SLIDER_SUM = {
   step: 1_000,
 };
 
-const INCOME_RATE = 0.1325;
+const INCOME_RATE = 0.146;
+const TERM_IN_MONTHS = 3;
 
 export const App = () => {
   const [view, setView] = useState<'init' | 'conditions'>('init');
@@ -42,7 +48,7 @@ export const App = () => {
   const [bsContent, setBsContent] = useState<'about' | 'details'>('about');
   const [sliderSum, setSliderSum] = useState(SLIDER_SUM.default);
   const pageOpenAtRef = useRef(Date.now());
-  const expectedIncome = round(sliderSum * INCOME_RATE + sliderSum, 2);
+  const expectedIncome = round((sliderSum * INCOME_RATE * TERM_IN_MONTHS) / 12, 2);
 
   useEffect(() => {
     if (!LS.getItem(LSKeys.UserId, null)) {
@@ -66,10 +72,10 @@ export const App = () => {
         return (
           <>
             <Typography.Title tag="h3" view="xsmall" weight="semibold">
-              Fort Knox, 1 год
+              Fort Knox, 3 месяца
             </Typography.Title>
             <Typography.Text view="primary-medium">
-              Инвестиции с гарантированным доходом 13,25% годовых и страховой составляющей
+              Зафиксируйте повышенную ставку дохода 14,60% годовых и оставайтесь под страховой защитой
             </Typography.Text>
             <Gap size={1} />
             <Typography.Title tag="h3" view="xsmall" weight="semibold">
@@ -96,25 +102,7 @@ export const App = () => {
               <br />• В конце программы вы получаете всю внесенную сумму и гарантированный доход.
             </Typography.Text>
             <Gap size={1} />
-            <Typography.Title tag="h3" view="xsmall" weight="semibold">
-              Специальное предложение — Альфа-Вклад Актив
-            </Typography.Title>
-            <Typography.Text view="primary-medium">
-              В течение недели после оформления программы Fort Knox вы можете открыть вклад на 2, 3 или 6 месяцев с
-              повышенной ставкой в мобильном приложении Альфа-Банка.
-            </Typography.Text>
-            <Gap size={1} />
-            <Typography.Title tag="h3" view="xsmall" weight="semibold">
-              Как открыть Альфа-Вклад Актив
-            </Typography.Title>
-            <Typography.Text view="primary-medium">
-              • Откройте программу Fort Knox
-              <br />
-              • Альфа-Вклад Актив доступен для открытия в течение 7 дней после взноса. Сумма вклада не превышает сумму взноса
-              по Fort Knox
-              <br />• По вкладу сразу будет установлена повышенная ставка
-            </Typography.Text>
-            <Typography.Text view="primary-medium">
+            <Typography.Text view="primary-medium" style={{ fontStyle: 'italic' }}>
               Предложение действительно ограниченное время. Если вы уже оформляли договор страхования ранее — актуальные
               параметры ищите в вашем Договоре страхования.
             </Typography.Text>
@@ -138,7 +126,7 @@ export const App = () => {
                 Срок программы
               </Typography.Text>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                12 месяцев
+                3 месяца
               </Typography.Text>
             </div>
             <Gap size={1} />
@@ -158,7 +146,7 @@ export const App = () => {
                 Размер купона
               </Typography.Text>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                13,25% за 12 месяцев
+                3,65% за 3 месяца
               </Typography.Text>
             </div>
             <Gap size={1} />
@@ -230,13 +218,13 @@ export const App = () => {
                 <PureCell.Content>
                   <PureCell.Main>
                     <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                      Fort Knox, 1 год
+                      Fort Knox, 3 мес
                     </Typography.Text>
                   </PureCell.Main>
                 </PureCell.Content>
               </PureCell>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                Инвестиции с гарантированным доходом 13,25% годовых и страховой составляющей&nbsp;…
+                Инвестиции с гарантированным доходом 14,60% годовых и страховой составляющей&nbsp;…
               </Typography.Text>
 
               <Button
@@ -307,7 +295,7 @@ export const App = () => {
                   </div>
 
                   <div className={appSt.tag}>
-                    <Typography.Text view="primary-small">1 год</Typography.Text>
+                    <Typography.Text view="primary-small">3 месяца</Typography.Text>
                   </div>
                 </div>
 
@@ -345,7 +333,7 @@ export const App = () => {
               {items.map((item, index) => (
                 <PureCell key={index}>
                   <PureCell.Graphics verticalAlign="center">
-                    <img src={checkImg} width={48} height={48} alt="check" />
+                    <img src={item.img} width={48} height={48} alt="check" />
                   </PureCell.Graphics>
                   <PureCell.Content>
                     <PureCell.Main>
@@ -379,7 +367,7 @@ export const App = () => {
                 Риск
               </Typography.Text>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                Умеренный
+                Ультра-консервативный
               </Typography.Text>
             </div>
           </div>
